@@ -7,9 +7,11 @@ import { AssetTable } from './components/AssetTable';
 import type { AssetCategory, Market } from './types';
 import './App.css';
 
+const MARKET_FILTER_CATEGORIES: AssetCategory[] = ['index', 'stock'];
+
 function App() {
   const quotes = useAssetFeed();
-  const [category, setCategory] = useState<AssetCategory>('stock');
+  const [category, setCategory] = useState<AssetCategory>('index');
   const [market, setMarket] = useState<Market | 'ALL'>('ALL');
   const [query, setQuery] = useState('');
   const [watchlistOnly, setWatchlistOnly] = useState(false);
@@ -24,6 +26,9 @@ function App() {
     });
   }
 
+  const showMarketFilter = MARKET_FILTER_CATEGORIES.includes(category);
+  const liveCount = useMemo(() => quotes.filter((q) => q.isLive).length, [quotes]);
+
   const categoryQuotes = useMemo(
     () => quotes.filter((q) => q.category === category),
     [quotes, category],
@@ -32,22 +37,25 @@ function App() {
   const visibleQuotes = useMemo(() => {
     const term = query.trim().toLowerCase();
     return categoryQuotes.filter((q) => {
-      if (category === 'stock' && market !== 'ALL' && q.market !== market) return false;
+      if (showMarketFilter && market !== 'ALL' && q.market !== market) return false;
       if (watchlistOnly && !watchlist.has(q.symbol)) return false;
       if (!term) return true;
       return q.name.toLowerCase().includes(term) || q.symbol.toLowerCase().includes(term);
     });
-  }, [categoryQuotes, category, market, query, watchlistOnly, watchlist]);
+  }, [categoryQuotes, showMarketFilter, market, query, watchlistOnly, watchlist]);
 
   return (
     <div className="app">
       <header className="app-header">
         <div className="brand">
           <h1>Global Market Pulse</h1>
-          <p className="tagline">Stocks · Commodities · Forex, worldwide</p>
+          <p className="tagline">Indices · Stocks · Commodities · Forex, worldwide</p>
         </div>
-        <span className="demo-badge" title="Simulated random-walk data, not a live market feed">
-          DEMO DATA
+        <span
+          className="demo-badge"
+          title="Forex and gold/silver are polled live from Frankfurter and gold-api.com (both key-free); indices, individual stocks, and other commodities are simulated"
+        >
+          {liveCount > 0 ? `${liveCount} LIVE / REST DEMO` : 'DEMO DATA'}
         </span>
       </header>
 
@@ -55,7 +63,7 @@ function App() {
 
       <div className="controls">
         <CategoryTabs selected={category} onSelect={setCategory} />
-        {category === 'stock' && <MarketFilter selected={market} onSelect={setMarket} />}
+        {showMarketFilter && <MarketFilter selected={market} onSelect={setMarket} />}
         <div className="controls-right">
           <input
             type="search"
@@ -79,8 +87,9 @@ function App() {
 
       <footer className="app-footer">
         <p>
-          Prices are simulated for demo purposes. See the README for the plan to plug in a real
-          market data provider.
+          <span className="live-dot live" /> live (key-free API) &nbsp;
+          <span className="live-dot demo" /> simulated demo data. See the README for the data-source
+          roadmap.
         </p>
       </footer>
     </div>

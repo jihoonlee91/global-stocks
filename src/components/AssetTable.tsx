@@ -9,7 +9,7 @@ interface AssetTableProps {
 }
 
 function tagFor(quote: AssetQuote): string {
-  if (quote.category === 'stock') return quote.market ?? '';
+  if (quote.category === 'index' || quote.category === 'stock') return quote.market ?? '';
   if (quote.category === 'commodity') return quote.unit ?? '';
   return 'FX';
 }
@@ -57,7 +57,13 @@ export function AssetTable({ quotes, watchlist, onToggleWatch }: AssetTableProps
               </button>
             </span>
             <span className="col-name">
-              <span className="stock-name">{q.name}</span>
+              <span className="stock-name">
+                {q.name}
+                <span
+                  className={`live-dot ${q.isLive ? 'live' : 'demo'}`}
+                  title={q.isLive ? 'Live (key-free API)' : 'Simulated demo data'}
+                />
+              </span>
               <span className="stock-symbol">{q.symbol}</span>
             </span>
             <span className="col-market">

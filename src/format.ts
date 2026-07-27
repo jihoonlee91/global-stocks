@@ -8,6 +8,7 @@ const CURRENCY_LOCALE: Record<string, string> = {
   CHF: 'de-CH',
   HKD: 'zh-HK',
   CNY: 'zh-CN',
+  GBP: 'en-GB',
 };
 
 function formatCurrency(price: number, currency: string): string {
@@ -27,6 +28,12 @@ export function formatAssetPrice(asset: AssetQuote): string {
     return asset.price.toLocaleString('en-US', {
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
+    });
+  }
+  if (asset.category === 'index') {
+    return asset.price.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
   }
   const base = formatCurrency(asset.price, asset.currency);

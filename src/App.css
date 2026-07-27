@@ -166,10 +166,33 @@
 }
 
 .stock-name {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
   color: var(--text-h);
   font-size: 14px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.live-dot.live {
+  background: var(--up);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--up) 25%, transparent);
+}
+
+.live-dot.demo {
+  background: var(--border);
+}
+
+.app-footer .live-dot {
+  vertical-align: middle;
 }
 
 .stock-symbol {

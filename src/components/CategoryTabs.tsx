@@ -1,6 +1,7 @@
 import type { AssetCategory } from '../types';
 
 const CATEGORIES: { id: AssetCategory; label: string }[] = [
+  { id: 'index', label: 'Indices' },
   { id: 'stock', label: 'Stocks' },
   { id: 'commodity', label: 'Commodities' },
   { id: 'forex', label: 'Forex' },

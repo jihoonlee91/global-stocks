@@ -1,5 +1,5 @@
 export type Market = 'US' | 'KR' | 'JP' | 'EU' | 'HK' | 'CN';
-export type AssetCategory = 'stock' | 'commodity' | 'forex';
+export type AssetCategory = 'index' | 'stock' | 'commodity' | 'forex';
 
 export interface AssetMeta {
   symbol: string;
@@ -21,4 +21,6 @@ export interface AssetQuote extends AssetMeta {
   changePercent: number;
   history: number[];
   updatedAt: number;
+  /** True once at least one real fetch from a key-free provider has landed. */
+  isLive: boolean;
 }
