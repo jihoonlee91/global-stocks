@@ -1,0 +1,244 @@
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.tagline {
+  color: var(--text);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.demo-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--down);
+  background: color-mix(in srgb, var(--down) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--down) 40%, transparent);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.insights-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.insight-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.insight-label {
+  font-size: 12px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.insight-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-h);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.up {
+  color: var(--up);
+}
+
+.down {
+  color: var(--down);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.category-tabs,
+.market-filter {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.category-tab,
+.market-chip {
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.category-tab.active,
+.market-chip.active {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.search-input {
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-h);
+  min-width: 200px;
+}
+
+.watchlist-toggle {
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.stock-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.stock-row {
+  display: grid;
+  grid-template-columns: 32px 1.6fr 0.8fr 110px 1fr 1fr 0.8fr;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.stock-row:last-child {
+  border-bottom: none;
+}
+
+.stock-row--head {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.stock-name {
+  display: block;
+  font-weight: 600;
+  color: var(--text-h);
+  font-size: 14px;
+}
+
+.stock-symbol {
+  display: block;
+  font-size: 12px;
+  color: var(--text);
+  font-family: var(--mono);
+}
+
+.market-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--accent-bg);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.col-price {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.col-change {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.col-updated {
+  font-size: 12px;
+  color: var(--text);
+  font-family: var(--mono);
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--border);
+  line-height: 1;
+  padding: 0;
+}
+
+.star-btn.active {
+  color: #f59e0b;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  color: var(--text);
+}
+
+.app-footer {
+  font-size: 12px;
+  color: var(--text);
+  text-align: center;
+  padding-top: 8px;
+}
+
+@media (max-width: 720px) {
+  .stock-row {
+    grid-template-columns: 24px 1.4fr 90px 1fr;
+  }
+  .col-chart,
+  .col-updated {
+    display: none;
+  }
+}
